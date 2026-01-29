@@ -1,0 +1,20 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "task_5_wd_events",
+  "keywords": [
+    "web_dev",
+    "task05"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "y"
+  },
+  "license": "UNLICENSED",
+  "author": "anoothi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "welcome to acmw"
+  }
+}

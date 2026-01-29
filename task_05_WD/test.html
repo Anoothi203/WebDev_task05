@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; padding: 20px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+        button:hover { background: #0056b3; }
+        #response { background: #f4f4f4; padding: 15px; border-radius: 5px; margin-top: 20px; white-space: pre-wrap; }
+        input { padding: 8px; width: 300px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>ACM-W Event API Tester</h1>
+    
+    <div>
+        <h3>Test GET Requests</h3>
+        <button onclick="testWelcome()">Test GET /</button>
+        <button onclick="testGetEvents()">Test GET /events</button>
+    </div>
+
+    <div>
+        <h3>Test POST Request</h3>
+        <input type="text" id="eventName" placeholder="Event Name">
+        <input type="text" id="eventDate" placeholder="Date (YYYY-MM-DD)">
+        <button onclick="testPostEvent()">Add Event</button>
+    </div>
+
+    <h3>Response:</h3>
+    <div id="response">Click a button to test the API...</div>
+
+    <script>
+        async function testWelcome() {
+            const response = await fetch('http://localhost:3000');
+            const data = await response.text();
+            document.getElementById('response').textContent = data;
+        }
+
+        async function testGetEvents() {
+            const response = await fetch('http://localhost:3000/events');
+            const data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function testPostEvent() {
+            const name = document.getElementById('eventName').value;
+            const date = document.getElementById('eventDate').value;
+
+            const response = await fetch('http://localhost:3000/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, date })
+            });
+
+            const data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            
+            // Clear inputs
+            document.getElementById('eventName').value = '';
+            document.getElementById('eventDate').value = '';
+        }
+    </script>
+</body>
+</html>
